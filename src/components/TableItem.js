@@ -1,4 +1,5 @@
 import React from "react";
+import { IoMdArrowDropdown } from 'react-icons/io';
 
 const TableItem = ({ data }) => {
   return (
@@ -8,7 +9,7 @@ const TableItem = ({ data }) => {
           <div class="flex-shrink-0 w-10 h-10">
             <img
               class="w-full h-full rounded-full"
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiBvGN_TTMm-NrBF6CEj8ZpjOibejLM7KJO6rIRYVqVA&s"
               alt=""
             />
           </div>
@@ -31,6 +32,7 @@ const TableItem = ({ data }) => {
           <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
             <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
             <span class="relative">Active</span>
+            <IoMdArrowDropdown/>
           </span>
         </td>
       )}
