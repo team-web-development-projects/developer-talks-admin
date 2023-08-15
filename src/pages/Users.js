@@ -21,7 +21,6 @@ const Users = () => {
   });
 
   if (isLoading) return <div>Loading...</div>;
-  console.log("data", data);
 
   return (
     <>
@@ -38,7 +37,7 @@ const Users = () => {
               <table class="min-w-full leading-normal">
                 <thead>
                   <tr>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th class="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       USERID
                     </th>
                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -50,8 +49,11 @@ const Users = () => {
                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       CREATE_DATE
                     </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th class="py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       STAUTS
+                    </th>
+                    <th class="px-2 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      EDIT
                     </th>
                   </tr>
                 </thead>
@@ -59,17 +61,17 @@ const Users = () => {
                   {data.totalElements ? data.content.map((board, index) => <TableItem key={index} data={board} />) : <li>등록된 유저가 없습니다.</li>}
                 </tbody>
               </table>
-              <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
-                <span class="text-xs xs:text-sm text-gray-900">{``}</span>
-                <div class="inline-flex mt-2 xs:mt-0">
+              <div class="px-2 py-2 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
+                <div class="inline-flex mt-2 mb-2 xs:mt-0">
                   <button class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l">
                     이전
                   </button>
                   &nbsp; &nbsp;
                   <button class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-r">
-                    뒤로
+                    다음
                   </button>
                 </div>
+                <span class="text-xs xs:text-sm text-gray-900">{`1 of 5 page`}</span>
               </div>
             </div>
           </div>
