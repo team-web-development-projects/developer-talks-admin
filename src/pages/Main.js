@@ -1,8 +1,11 @@
 import React from "react";
+import axios from "axios";
+import { ROOT_API } from "../constants/api";
 
 const Main = () => {
   return (
     <>
+    
       <div className="flex-item w-full container p-10 bg-[#f1f1f1]">
         <p className="h-[71px] text-3xl text-center text-black">관리자 권한 설정</p>
         <div className="flex space-x-10 w-full">
