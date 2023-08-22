@@ -5,9 +5,13 @@ import DropDown from "./DropDown";
 import Modal from "./Modal";
 
 const TableItem = ({ data }) => {
-  const [modal, setModal] = useState(false);
-  const handleModal = () => {
-    setModal(!modal);
+  const [modalStatus, setModalStatus] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+  const handleModalStatus = () => {
+    setModalStatus(!modalStatus);
+  };
+  const handleModalEdit = () => {
+    setModalEdit(!modalEdit);
   };
   return (
     <li className="flex items-center px-4 py-2 border-b border-gray-200 bg-white">
@@ -16,7 +20,7 @@ const TableItem = ({ data }) => {
           <div className="flex-shrink-0 w-10 h-10">
             <img
               className="w-full h-full rounded-full"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiBvGN_TTMm-NrBF6CEj8ZpjOibejLM7KJO6rIRYVqVA&s"
+              src={data.profileImgUrl ? data.profileImgUrl : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
               alt=""
             />
           </div>
@@ -35,7 +39,7 @@ const TableItem = ({ data }) => {
         <p className="text-gray-900">{data.createDate}</p>
       </div>
       {data.status === "ACTIVE" && (
-        <div className="w-52 text-sm cursor-pointer">
+        <div onClick={handleModalStatus} className="w-52 text-sm cursor-pointer">
           <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
             <span aria-hidden className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
             <div className="flex items-center">
@@ -79,14 +83,67 @@ const TableItem = ({ data }) => {
         </div>
       )}
       <div className="text-sm">
-        <HiOutlinePencilAlt className="text-blue-500 text-lg cursor-pointer" onClick={handleModal} />
-        {modal && 
-          <Modal handleModal={handleModal}>
-            <Modal.Header>유저 수정</Modal.Header>
-            <Modal.Body>유저 내용</Modal.Body>
-            <Modal.Footer>수정</Modal.Footer>
-          </Modal>}
+        <HiOutlinePencilAlt className="text-blue-500 text-lg cursor-pointer" onClick={handleModalEdit} />
       </div>
+      {modalEdit && (
+        <Modal handleModal={handleModalEdit}>
+          <Modal.Header>유저 수정</Modal.Header>
+          <Modal.Body>유저 내용</Modal.Body>
+          <Modal.Footer>수정</Modal.Footer>
+        </Modal>
+      )}
+      {modalStatus && (
+        <Modal handleModal={handleModalStatus}>
+          <Modal.Header>사용자 권한 변경</Modal.Header>
+          <Modal.Body>
+            <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-900 rounded-lg sm:flex ">
+              <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r ">
+                <div class="flex items-center pl-3">
+                  <input
+                    id="horizontal-list-radio-license"
+                    type="radio"
+                    value=""
+                    name="list-radio"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                  />
+                  <label for="horizontal-list-radio-license" class="w-full py-3 ml-2 text-sm font-medium text-gray-900">
+                    Active
+                  </label>
+                </div>
+              </li>
+              <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
+                <div class="flex items-center pl-3">
+                  <input
+                    id="horizontal-list-radio-id"
+                    type="radio"
+                    value=""
+                    name="list-radio"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+                  />
+                  <label for="horizontal-list-radio-id" class="w-full py-3 ml-2 text-sm font-medium text-gray-900">
+                    Suspension
+                  </label>
+                </div>
+              </li>
+              <li class="w-full">
+                <div class="flex items-center pl-3">
+                  <input
+                    id="horizontal-list-radio-passport"
+                    type="radio"
+                    value=""
+                    name="list-radio"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+                  />
+                  <label for="horizontal-list-radio-passport" class="w-full py-3 ml-2 text-sm font-medium text-gray-900">
+                    Ban
+                  </label>
+                </div>
+              </li>
+            </ul>
+          </Modal.Body>
+          <Modal.Footer>확인</Modal.Footer>
+        </Modal>
+      )}
     </li>
   );
 };

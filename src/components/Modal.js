@@ -17,7 +17,7 @@ const Modal = ({ handleModal, children }) => {
               </svg>
             </span>
           </div>
-          <div className="text-gray-500 text-sm px-4 py-8">{body}</div>
+          <div className="px-4 py-8">{body}</div>
           <div className="flex justify-end items-center w-100 border-t p-3 text-gray-500">
             <button onClick={handleModal} className="bg-blue-500 hover:bg-blue-700 px-3 py-1 rounded text-white">
               {footer}

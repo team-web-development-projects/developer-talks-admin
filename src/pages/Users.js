@@ -52,7 +52,7 @@ const Users = () => {
               </ul>
             </div>
             <div className="px-2 py-2 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
-              <div className="inline-flex mt-2 mb-2 xs:mt-0">
+              {/* <div className="inline-flex mt-2 mb-2 xs:mt-0">
                 <button className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l">
                   이전
                 </button>
@@ -60,6 +60,12 @@ const Users = () => {
                 <button className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-r">
                   다음
                 </button>
+              </div> */}
+              <div class="inline-flex">
+                <span className='mr-4 py-2 text-xs font-semibold text-gray-600'>1 page</span>
+                <button class="bg-gray-300 hover:bg-gray-400 text-xs font-semibold text-gray-600 py-2 px-4 rounded-l">Prev</button>
+                <button class="bg-gray-300 hover:bg-gray-400 text-xs font-semibold text-gray-600 py-2 px-4 rounded-r">Next</button>
+                <span className='ml-4 py-2 text-xs font-semibold text-gray-600'>2 page</span>
               </div>
             </div>
           </div>
