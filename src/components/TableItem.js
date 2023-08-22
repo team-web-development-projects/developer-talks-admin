@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { IoMdArrowDropdown } from "react-icons/io";
-import { HiOutlinePencilAlt } from "react-icons/hi";
-import { FaKey } from "react-icons/fa";
-import DropDown from "./DropDown";
-import Modal from "./Modal";
 import axios from "axios";
+import React, { useState } from "react";
+import { FaKey } from "react-icons/fa";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { useMutation, useQueryClient } from "react-query";
 import { ROOT_API } from "../constants/api";
-import { useMutation, useQueryClient } from 'react-query';
+import Loading from "./Loading";
+import Modal from "./Modal";
 
 const TableItem = ({ data }) => {
   const queryClient = useQueryClient();
@@ -43,10 +43,9 @@ const TableItem = ({ data }) => {
         }
       ),
     {
-      onSuccess: (res) => {
+      onSuccess: () => {
         queryClient.invalidateQueries(["userList"]);
         setModalEdit(false);
-        console.log(res.data);
       },
       onError: (err) => {
         console.log(err.response.data.message);
@@ -67,8 +66,32 @@ const TableItem = ({ data }) => {
   const handleModalInputPw = () => {
     setModalInputPw(!modalInputPw);
   };
-  const handleSubmitInputPw = () => {
-    setModalInputPw(false);
+  const pwMutation = useMutation(
+    () =>
+      axios.put(
+        `${ROOT_API}/admin/users/update/${data.id}/password`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-AUTH-TOKEN": token,
+          },
+        }
+      ),
+    {
+      onSuccess: (res) => {
+        queryClient.invalidateQueries(["userList"]);
+        setUserPw("");
+        console.log(res.data);
+      },
+      onError: (err) => {
+        console.log(err.response.data.message);
+      },
+    }
+  );
+  const handleSubmitInputPw = (e) => {
+    e.preventDefault();
+    pwMutation.mutate();
   };
   const handleChangeInfo = (e) => {
     const { name, value } = e.target;
@@ -191,19 +214,29 @@ const TableItem = ({ data }) => {
         <Modal handleModal={handleModalInputPw} handleSubmit={handleSubmitInputPw}>
           <Modal.Header>임시 비밀번호 발급</Modal.Header>
           <Modal.Body>
-            <div className="relative mb-6">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                <FaKey className="w-4 h-4 text-gray-500" />
+            {pwMutation.isLoading ? (
+              <div>
+                <p className="mb-3">임시 비밀번호를 발급 중입니다.</p>
+                <Loading />
               </div>
-              <input
-                type="text"
-                id="input-pw"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-                placeholder="name@flowbite.com"
-              />
-            </div>
+            ) : (
+              <div className="relative mb-6">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                  <FaKey className="w-4 h-4 text-gray-500" />
+                </div>
+                <input
+                  type="text"
+                  id="input-pw"
+                  value={userPw}
+                  onChange={(e) => setUserPw(e.target.value)}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                  placeholder="임시 비밀번호를 입력해주세요."
+                />
+              </div>
+            )}
+            {pwMutation.isError && <p className="text-red-500">비밀번호를 재발급하는데 실패했습니다.</p>}
           </Modal.Body>
-          <Modal.Footer>확인</Modal.Footer>
+          {!pwMutation.isLoading && <Modal.Footer>확인</Modal.Footer>}
         </Modal>
       )}
       <li className="flex items-center px-4 py-2 border-b border-gray-200 bg-white">
