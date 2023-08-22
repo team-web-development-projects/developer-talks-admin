@@ -1,81 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { HiOutlinePencilAlt } from "react-icons/hi";
+import DropDown from "./DropDown";
+import Modal from "./Modal";
 
 const TableItem = ({ data }) => {
+  const [modal, setModal] = useState(false);
+  const handleModal = () => {
+    setModal(!modal);
+  };
   return (
-    <tr>
-      <td class="px-4 py-2 border-b border-gray-200 bg-white text-sm">
-        <div class="flex items-center">
-          <div class="flex-shrink-0 w-10 h-10">
+    <li className="flex items-center px-4 py-2 border-b border-gray-200 bg-white">
+      <div className="w-96 text-sm">
+        <div className="flex items-center">
+          <div className="flex-shrink-0 w-10 h-10">
             <img
-              class="w-full h-full rounded-full"
+              className="w-full h-full rounded-full"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiBvGN_TTMm-NrBF6CEj8ZpjOibejLM7KJO6rIRYVqVA&s"
               alt=""
             />
           </div>
-          <div class="ml-3">
-            <p class="text-gray-900 whitespace-no-wrap">{data.userid}</p>
+          <div className="ml-3">
+            <p className="text-gray-900">{data.userid}</p>
           </div>
         </div>
-      </td>
-      <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
-        <p class="text-gray-900 whitespace-no-wrap">{data.email}</p>
-      </td>
-      <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
-        <p class="text-gray-900 whitespace-no-wrap">{data.nickname}</p>
-      </td>
-      <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
-        <p class="text-gray-900 whitespace-no-wrap">{data.createDate}</p>
-      </td>
+      </div>
+      <div className="w-96 text-sm">
+        <p className="text-gray-900">{data.email}</p>
+      </div>
+      <div className="w-80 text-sm">
+        <p className="text-gray-900">{data.nickname}</p>
+      </div>
+      <div className="w-80 text-sm">
+        <p className="text-gray-900">{data.createDate}</p>
+      </div>
       {data.status === "ACTIVE" && (
-        <td class="py-2 border-b border-gray-200 bg-white text-sm">
-          <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-            <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+        <div className="w-52 text-sm cursor-pointer">
+          <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+            <span aria-hidden className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
             <div className="flex items-center">
-              <span class="relative mr-1">Active</span>
+              <span className="relative mr-1">Active</span>
               <IoMdArrowDropdown />
             </div>
           </span>
-        </td>
+        </div>
       )}
       {data.status === "SUSPENSION" && (
-        <td class="py-2 border-b border-gray-200 bg-white text-sm">
-          <span class="relative inline-block px-3 py-1 font-semibold text-orange-900 leading-tight">
-            <span aria-hidden class="absolute inset-0 bg-orange-200 opacity-50 rounded-full"></span>
+        <div className="w-52 text-sm">
+          <span className="relative inline-block px-3 py-1 font-semibold text-orange-900 leading-tight">
+            <span aria-hidden className="absolute inset-0 bg-orange-200 opacity-50 rounded-full"></span>
             <div className="flex items-center">
-              <span class="relative">Suspension</span>
+              <span className="relative">Suspension</span>
               <IoMdArrowDropdown />
             </div>
           </span>
-        </td>
+        </div>
       )}
       {data.status === "BAN" && (
-        <td class="py-2 bg-white text-sm">
-          <span class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-            <span aria-hidden class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+        <div className="w-52 text-sm">
+          <span className="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+            <span aria-hidden className="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
             <div className="flex items-center">
-              <span class="relative">Ban</span>
+              <span className="relative">Ban</span>
               <IoMdArrowDropdown />
             </div>
           </span>
-        </td>
+        </div>
       )}
       {data.status === "QUIT" && (
-        <td class="py-2 bg-white text-sm">
-          <span class="relative inline-block px-3 py-1 font-semibold text-amber-900 leading-tight">
-            <span aria-hidden class="absolute inset-0 bg-amber-200 opacity-50 rounded-full"></span>
+        <div className="w-52 text-sm">
+          <span className="relative inline-block px-3 py-1 font-semibold text-amber-900 leading-tight">
+            <span aria-hidden className="absolute inset-0 bg-amber-200 opacity-50 rounded-full"></span>
             <div className="flex items-center">
-              <span class="relative">Quit</span>
+              <span className="relative">Quit</span>
               <IoMdArrowDropdown />
             </div>
           </span>
-        </td>
+        </div>
       )}
-      <td class="px-3 py-2 border-b border-gray-200 bg-white text-sm">
-        <HiOutlinePencilAlt class="text-blue-500 text-lg" />
-      </td>
-    </tr>
+      <div className="text-sm">
+        <HiOutlinePencilAlt className="text-blue-500 text-lg cursor-pointer" onClick={handleModal} />
+        {modal && 
+          <Modal handleModal={handleModal}>
+            <Modal.Header>유저 수정</Modal.Header>
+            <Modal.Body>유저 내용</Modal.Body>
+            <Modal.Footer>수정</Modal.Footer>
+          </Modal>}
+      </div>
+    </li>
   );
 };
 
