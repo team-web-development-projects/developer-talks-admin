@@ -18,7 +18,7 @@ const Users = () => {
   }
 
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: [],
+    queryKey: ["userList"],
     queryFn: getUserList,
   });
 
@@ -61,10 +61,10 @@ const Users = () => {
                   다음
                 </button>
               </div> */}
-              <div class="inline-flex">
+              <div className="inline-flex">
                 <span className='mr-4 py-2 text-xs font-semibold text-gray-600'>1 page</span>
-                <button class="bg-gray-300 hover:bg-gray-400 text-xs font-semibold text-gray-600 py-2 px-4 rounded-l">Prev</button>
-                <button class="bg-gray-300 hover:bg-gray-400 text-xs font-semibold text-gray-600 py-2 px-4 rounded-r">Next</button>
+                <button className="bg-gray-300 hover:bg-gray-400 text-xs font-semibold text-gray-600 py-2 px-4 rounded-l">Prev</button>
+                <button className="bg-gray-300 hover:bg-gray-400 text-xs font-semibold text-gray-600 py-2 px-4 rounded-r">Next</button>
                 <span className='ml-4 py-2 text-xs font-semibold text-gray-600'>2 page</span>
               </div>
             </div>
