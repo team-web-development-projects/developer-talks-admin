@@ -1,14 +1,24 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { ROOT_API } from "../constants/api";
 import TableItem from "../components/TableItem";
 
 const Users = () => {
   const token = localStorage.getItem("admin");
+  const [page, setPage] = useState(0);
+
+  const handlePage = (type) => {
+    if (type === "prev" && page > 0) {
+      setPage(page - 1);
+    } else if (type === "next" && page < data.totalPages - 1) {
+      setPage(page + 1);
+    }
+  };
+
   async function getUserList() {
     const { data } = await axios.get(`${ROOT_API}/admin/users`, {
-      params: { page: 0, size: 10 },
+      params: { page: page, size: 10 },
       headers: {
         "Content-Type": "application/json",
         "X-AUTH-TOKEN": token,
@@ -22,6 +32,10 @@ const Users = () => {
     queryFn: getUserList,
   });
 
+  useEffect(() => {
+    refetch();
+  }, [page]);
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>error...</div>;
 
@@ -29,9 +43,18 @@ const Users = () => {
     <>
       <div className="bg-white p-8 rounded-md w-full">
         <div className=" flex items-center">
-          <div>
-            <h2 className="text-gray-600 font-semibold">유저관리</h2>
-            <span className="text-xs">전체 유저</span>
+          <div className="flex">
+            <h2 className="text-gray-600 font-semibold">전체유저</h2>
+            <select
+              id="countries"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            >
+              <option selected>--</option>
+              <option value="active">ACTIVE</option>
+              <option value="suspension">SUSPENSION</option>
+              <option value="ban">BAN</option>
+              <option value="quit">QUIT</option>
+            </select>
           </div>
         </div>
         <div className="mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
@@ -52,20 +75,21 @@ const Users = () => {
               </ul>
             </div>
             <div className="px-2 py-2 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
-              {/* <div className="inline-flex mt-2 mb-2 xs:mt-0">
-                <button className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l">
-                  이전
-                </button>
-                <span className="text-xs xs:text-sm text-gray-900">{`1 / 2 page`}</span>
-                <button className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-r">
-                  다음
-                </button>
-              </div> */}
               <div className="inline-flex">
-                <span className='mr-4 py-2 text-xs font-semibold text-gray-600'>1 page</span>
-                <button className="bg-gray-300 hover:bg-gray-400 text-xs font-semibold text-gray-600 py-2 px-4 rounded-l">Prev</button>
-                <button className="bg-gray-300 hover:bg-gray-400 text-xs font-semibold text-gray-600 py-2 px-4 rounded-r">Next</button>
-                <span className='ml-4 py-2 text-xs font-semibold text-gray-600'>2 page</span>
+                <span className="mr-4 py-2 text-xs font-semibold text-gray-600">{page + 1} page</span>
+                <button
+                  onClick={() => handlePage("prev")}
+                  className="bg-gray-300 hover:bg-gray-400 text-xs font-semibold text-gray-600 py-2 px-4 rounded-l"
+                >
+                  Prev
+                </button>
+                <button
+                  onClick={() => handlePage("next")}
+                  className="bg-gray-300 hover:bg-gray-400 text-xs font-semibold text-gray-600 py-2 px-4 rounded-r"
+                >
+                  Next
+                </button>
+                <span className="ml-4 py-2 text-xs font-semibold text-gray-600">{data.totalPages} page</span>
               </div>
             </div>
           </div>
