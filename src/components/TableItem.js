@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { ROOT_API } from "../constants/api";
 import Loading from "./Loading";
 import Modal from "./Modal";
+import Status from "./Status";
 
 const TableItem = ({ data }) => {
   const queryClient = useQueryClient();
@@ -264,48 +265,24 @@ const TableItem = ({ data }) => {
           <p className="text-gray-900">{data.createDate}</p>
         </div>
         {data.status === "ACTIVE" && (
-          <div className="w-52 text-sm">
-            <span onClick={handleModalStatus} className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight cursor-pointer">
-              <span aria-hidden className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-              <div className="flex items-center">
-                <span className="relative mr-1">Active</span>
-                <IoMdArrowDropdown />
-              </div>
-            </span>
-          </div>
+          <Status textColor="text-green-900" bgColor="bg-green-200" onClick={handleModalStatus}>
+            Active
+          </Status>
         )}
         {data.status === "SUSPENSION" && (
-          <div className="w-52 text-sm">
-            <span className="relative inline-block px-3 py-1 font-semibold text-orange-900 leading-tight">
-              <span aria-hidden className="absolute inset-0 bg-orange-200 opacity-50 rounded-full"></span>
-              <div className="flex items-center">
-                <span className="relative">Suspension</span>
-                <IoMdArrowDropdown />
-              </div>
-            </span>
-          </div>
+          <Status textColor="text-orange-900" bgColor="bg-orange-200" onClick={handleModalStatus}>
+            Suspension
+          </Status>
         )}
         {data.status === "BAN" && (
-          <div className="w-52 text-sm">
-            <span className="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-              <span aria-hidden className="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
-              <div className="flex items-center">
-                <span className="relative">Ban</span>
-                <IoMdArrowDropdown />
-              </div>
-            </span>
-          </div>
+          <Status textColor="text-red-900" bgColor="bg-red-200" onClick={handleModalStatus}>
+            Ban
+          </Status>
         )}
         {data.status === "QUIT" && (
-          <div className="w-52 text-sm">
-            <span className="relative inline-block px-3 py-1 font-semibold text-amber-900 leading-tight">
-              <span aria-hidden className="absolute inset-0 bg-amber-200 opacity-50 rounded-full"></span>
-              <div className="flex items-center">
-                <span className="relative">Quit</span>
-                <IoMdArrowDropdown />
-              </div>
-            </span>
-          </div>
+          <Status textColor="text-red-900" bgColor="bg-red-200" onClick={handleModalStatus}>
+            Quit
+          </Status>
         )}
         <div className="text-sm">
           <HiOutlinePencilAlt className="text-blue-500 text-lg cursor-pointer" onClick={handleModalEdit} />
