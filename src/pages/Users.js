@@ -7,6 +7,7 @@ import TableItem from "../components/TableItem";
 const Users = () => {
   const token = localStorage.getItem("admin");
   const [page, setPage] = useState(0);
+  const [status, setStatus] = useState("");
 
   const handlePage = (type) => {
     if (type === "prev" && page > 0) {
@@ -16,9 +17,13 @@ const Users = () => {
     }
   };
 
+  const handleStatus = (e) => {
+    setStatus(e.target.value);
+  };
+
   async function getUserList() {
     const { data } = await axios.get(`${ROOT_API}/admin/users`, {
-      params: { page: page, size: 10 },
+      params: { page: page, size: 10, status: status },
       headers: {
         "Content-Type": "application/json",
         "X-AUTH-TOKEN": token,
@@ -34,7 +39,7 @@ const Users = () => {
 
   useEffect(() => {
     refetch();
-  }, [page]);
+  }, [page, status]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>error...</div>;
@@ -46,14 +51,15 @@ const Users = () => {
           <div className="flex">
             <h2 className="text-gray-600 font-semibold">전체유저</h2>
             <select
-              id="countries"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              value={status}
+              onChange={handleStatus}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             >
-              <option selected>--</option>
-              <option value="active">ACTIVE</option>
-              <option value="suspension">SUSPENSION</option>
-              <option value="ban">BAN</option>
-              <option value="quit">QUIT</option>
+              <option value="">--</option>
+              <option value="ACTIVE">ACTIVE</option>
+              <option value="SUSPENSION">SUSPENSION</option>
+              <option value="BAN">BAN</option>
+              <option value="QUIT">QUIT</option>
             </select>
           </div>
         </div>
