@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { ROOT_API } from "../constants/api";
 import TableItem from "../components/TableItem";
+import { ROOT_API } from "../constants/api";
 
 const Users = () => {
   const token = localStorage.getItem("admin");
@@ -95,7 +95,7 @@ const Users = () => {
                 >
                   Next
                 </button>
-                <span className="ml-4 py-2 text-xs font-semibold text-gray-600">{data.totalPages} page</span>
+                <span className="ml-4 py-2 text-xs font-semibold text-gray-600">{data.totalPages === 0 ? "1 page" : `${data.totalPages} page`}</span>
               </div>
             </div>
           </div>
