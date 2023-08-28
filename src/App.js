@@ -4,10 +4,12 @@ import Home from './pages/Home';
 import Main from "./pages/Main";
 import Users from './pages/Users';
 import Login from "./pages/login";
+import Header from "./components/header";
 
 function App() {
   return (
     <div className="App">
+      <Header />
       <Routes>
         <Route>
           <Route path="/login" element={<Login />} />

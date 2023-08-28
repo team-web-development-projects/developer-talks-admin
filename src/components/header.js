@@ -35,9 +35,6 @@ function Header() {
         <Button variant="primary" type="button" className="text-white text-2xl font-bold" onClick={handleHomeClick}>
           HOME
         </Button>
-        <Button variant="primary" type="button" className="text-white text-2xl font-bold" onClick={handleUserClick}>
-          USER
-        </Button>
         {isAdminLoggedIn ? (
           <Button
             variant="primary"
