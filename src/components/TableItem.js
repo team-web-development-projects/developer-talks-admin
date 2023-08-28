@@ -5,7 +5,7 @@ import { HiOutlinePencilAlt } from "react-icons/hi";
 import { useMutation, useQueryClient } from "react-query";
 import { ROOT_API } from "../constants/api";
 import Loading from "./Loading";
-import Modal from "./Modal";
+import Modal from "./Modal/Modal";
 import Status from "./Status";
 
 const TableItem = ({ data }) => {

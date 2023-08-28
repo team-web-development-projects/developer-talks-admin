@@ -1,5 +1,5 @@
 import React from 'react';
-import NavSideBar from '../components/NavSideBar';
+import NavSideBar from '../layouts/NavSideBar';
 import { Outlet } from 'react-router-dom';
 
 const Home = () => {
