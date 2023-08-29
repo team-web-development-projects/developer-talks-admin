@@ -1,10 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from './pages/Home';
+import Home from "./pages/Home";
 import Main from "./pages/Main";
-import Users from './pages/Users';
+import Users from "./pages/Users";
 import Login from "./pages/login";
 import Header from "./components/header";
+import Board from "./pages/Board";
 
 function App() {
   return (
@@ -13,9 +14,11 @@ function App() {
       <Routes>
         <Route>
           <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Home/>}>
-            <Route path="main" element={<Main />} />
+          <Route path="/home" element={<Home />}>
+            <Route path="notice" element={<Main />} />
             <Route path="users" element={<Users />} />
+            <Route path="reportUsers" element={<Users />} />
+            <Route path="board" element={<Board />} />
           </Route>
         </Route>
       </Routes>
