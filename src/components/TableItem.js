@@ -7,14 +7,20 @@ import Status from "./Status";
 const TableItem = ({ data }) => {
   const [modalStatus, setModalStatus] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  const [status, setStatus] = useState("");
 
-  const handleModalStatus = () => {
-    setModalStatus((prev) => !prev);
+  const handleModalStatus = (t) => {
+    if (t === "QUIT") {
+      window.alert("탈퇴한 유저는 권한을 변경하실 수 없습니다.");
+    } else {
+      setStatus(t);
+      setModalStatus((prev) => !prev);
+    }
   };
 
   return (
     <>
-      {modalStatus && <ModalUserStatus setModalStatus={setModalStatus} />}
+      {modalStatus && <ModalUserStatus setModalStatus={setModalStatus} status={status} id={data.id}/>}
       {modalEdit && <ModalUserEdit setModalEdit={setModalEdit} data={data} />}
 
       <li className="flex items-center px-4 py-2 border-b border-gray-200 bg-white">
@@ -42,22 +48,22 @@ const TableItem = ({ data }) => {
           <p className="text-gray-900">{data.createDate}</p>
         </div>
         {data.status === "ACTIVE" && (
-          <Status textColor="text-green-900" bgColor="bg-green-200" onClick={handleModalStatus}>
+          <Status textColor="text-green-900" bgColor="bg-green-200" onClick={() => handleModalStatus("ACTIVE")}>
             Active
           </Status>
         )}
         {data.status === "SUSPENSION" && (
-          <Status textColor="text-orange-900" bgColor="bg-orange-200" onClick={handleModalStatus}>
+          <Status textColor="text-orange-900" bgColor="bg-orange-200" onClick={() => handleModalStatus("SUSPENSION")}>
             Suspension
           </Status>
         )}
         {data.status === "BAN" && (
-          <Status textColor="text-red-900" bgColor="bg-red-200" onClick={handleModalStatus}>
+          <Status textColor="text-red-900" bgColor="bg-red-200" onClick={() => handleModalStatus("BAN")}>
             Ban
           </Status>
         )}
         {data.status === "QUIT" && (
-          <Status textColor="text-red-900" bgColor="bg-red-200" onClick={handleModalStatus}>
+          <Status textColor="text-red-900" bgColor="bg-red-200" onClick={() => handleModalStatus("QUIT")}>
             Quit
           </Status>
         )}
