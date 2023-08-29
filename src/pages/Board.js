@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import TableItem from "../components/TableItem";
+import TableItem3 from "../components/TableItem3";
 import { ROOT_API } from "../constants/api";
 
-const Users = ({ type }) => {
+const Board = ({ type }) => {
   const token = localStorage.getItem("admin");
   const [page, setPage] = useState(0);
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState();
 
   const handlePage = (type) => {
     if (type === "prev" && page > 0) {
@@ -18,13 +18,16 @@ const Users = ({ type }) => {
   };
 
   const handleStatus = (e) => {
-    setStatus(e.target.value);
+    if (e.target.value === "") setStatus(null);
+    else {
+      setStatus(e.target.value);
+    }
   };
 
-  async function getUserList() {
+  async function getBoardList() {
     if (type === "all") {
-      const { data } = await axios.get(`${ROOT_API}/admin/users`, {
-        params: { page: page, size: 10, status: status },
+      const { data } = await axios.get(`${ROOT_API}/admin/posts/all`, {
+        params: { page: page, size: 10, forbidden: status },
         headers: {
           "Content-Type": "application/json",
           "X-AUTH-TOKEN": token,
@@ -44,22 +47,21 @@ const Users = ({ type }) => {
   }
 
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["userList"],
-    queryFn: getUserList,
+    queryKey: ["boardList"],
+    queryFn: getBoardList,
   });
 
   useEffect(() => {
     refetch();
   }, [page, status]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setPage(0);
     refetch();
-  },[type])
+  }, [type]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>error...</div>;
-
   return (
     <>
       <div className="bg-white p-8 rounded-md w-full">
@@ -67,21 +69,20 @@ const Users = ({ type }) => {
           <div className="flex">
             {type === "all" ? (
               <>
-                <h2 className="text-gray-600 font-semibold">전체유저</h2>
+                <h2 className="text-gray-600 font-semibold">전체 글</h2>
+
                 <select
                   value={status}
                   onChange={handleStatus}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 >
                   <option value="">--</option>
-                  <option value="ACTIVE">ACTIVE</option>
-                  <option value="SUSPENSION">SUSPENSION</option>
-                  <option value="BAN">BAN</option>
-                  <option value="QUIT">QUIT</option>
+                  <option value="true">FORBIDDEN</option>
+                  <option value="false">UNFORBIDDEN</option>
                 </select>
               </>
             ) : (
-              <h2 className="text-gray-600 font-semibold">신고유저</h2>
+              <h2 className="text-gray-600 font-semibold">신고 글</h2>
             )}
           </div>
         </div>
@@ -90,15 +91,15 @@ const Users = ({ type }) => {
             <div className="">
               <div>
                 <div className="flex px-4 py-3 border-b-2 border-gray-200 bg-gray-100">
-                  <div className="w-96 text-left text-xs font-semibold text-gray-600">USERID</div>
-                  <div className="w-96 text-left text-xs font-semibold text-gray-600">EMAIL</div>
-                  <div className="w-80 text-left text-xs font-semibold text-gray-600">NICKNAME</div>
+                  <div className="w-96 text-left text-xs font-semibold text-gray-600">NICKNAME</div>
+                  <div className="w-96 text-left text-xs font-semibold text-gray-600">TITLE</div>
+                  <div className="w-44 text-left text-xs font-semibold text-gray-600">VIEW_COUNT</div>
+                  <div className="w-44 text-left text-xs font-semibold text-gray-600">FAVORITE_COUNT</div>
+                  <div className="w-44 text-left text-xs font-semibold text-gray-600">RECOMMEND_COUNT</div>
+                  <div className="w-80 text-left text-xs font-semibold text-gray-600">CREATE_DATE</div>
+                  <div className="text-left text-xs font-semibold text-gray-600">DETAIL</div>
                   {type === "all" ? (
-                    <>
-                      <div className="w-80 text-left text-xs font-semibold text-gray-600">CREATE_DATE</div>
-                      <div className="w-52 text-left text-xs font-semibold text-gray-600">STAUTS</div>
-                      <div className="text-left text-xs font-semibold text-gray-600">EDIT</div>
-                    </>
+                    <></>
                   ) : (
                     <>
                       <div className="w-80 text-left text-xs font-semibold text-gray-600">RESULT_TYPE</div>
@@ -109,9 +110,9 @@ const Users = ({ type }) => {
               </div>
               <ul>
                 {data.totalElements ? (
-                  data.content.map((user, index) => <TableItem key={index} data={user} type={type} />)
+                  data.content.map((user, index) => <TableItem3 key={index} data={user} type={type} />)
                 ) : (
-                  <li>등록된 유저가 없습니다.</li>
+                  <li>등록된 글이 없습니다.</li>
                 )}
               </ul>
             </div>
@@ -140,4 +141,4 @@ const Users = ({ type }) => {
   );
 };
 
-export default Users;
+export default Board;
