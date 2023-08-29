@@ -18,7 +18,7 @@ function App() {
             <Route path="notice" element={<Main />} />
             <Route path="users" element={<Users type='all'/>} />
             <Route path="reportUsers" element={<Users type='report'/>} />
-            <Route path="board" element={<Board />} />
+            <Route path="board" element={<Board type='all'/>} />
           </Route>
         </Route>
       </Routes>
