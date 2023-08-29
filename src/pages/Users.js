@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import TableItem from "../components/TableItem";
 import { ROOT_API } from "../constants/api";
 
-const Users = () => {
+const Users = ({ type }) => {
   const token = localStorage.getItem("admin");
   const [page, setPage] = useState(0);
   const [status, setStatus] = useState("");
@@ -22,14 +22,25 @@ const Users = () => {
   };
 
   async function getUserList() {
-    const { data } = await axios.get(`${ROOT_API}/admin/users`, {
-      params: { page: page, size: 10, status: status },
-      headers: {
-        "Content-Type": "application/json",
-        "X-AUTH-TOKEN": token,
-      },
-    });
-    return data;
+    if (type === "all") {
+      const { data } = await axios.get(`${ROOT_API}/admin/users`, {
+        params: { page: page, size: 10, status: status },
+        headers: {
+          "Content-Type": "application/json",
+          "X-AUTH-TOKEN": token,
+        },
+      });
+      return data;
+    } else if (type === "report") {
+      const { data } = await axios.get(`${ROOT_API}/admin/reports/user/all`, {
+        params: { page: page, size: 10 },
+        headers: {
+          "Content-Type": "application/json",
+          "X-AUTH-TOKEN": token,
+        },
+      });
+      return data;
+    }
   }
 
   const { data, isLoading, error, refetch } = useQuery({
@@ -41,6 +52,11 @@ const Users = () => {
     refetch();
   }, [page, status]);
 
+  useEffect(()=>{
+    setPage(0);
+    refetch();
+  },[type])
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>error...</div>;
 
@@ -49,18 +65,24 @@ const Users = () => {
       <div className="bg-white p-8 rounded-md w-full">
         <div className=" flex items-center">
           <div className="flex">
-            <h2 className="text-gray-600 font-semibold">전체유저</h2>
-            <select
-              value={status}
-              onChange={handleStatus}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            >
-              <option value="">--</option>
-              <option value="ACTIVE">ACTIVE</option>
-              <option value="SUSPENSION">SUSPENSION</option>
-              <option value="BAN">BAN</option>
-              <option value="QUIT">QUIT</option>
-            </select>
+            {type === "all" ? (
+              <>
+                <h2 className="text-gray-600 font-semibold">전체유저</h2>
+                <select
+                  value={status}
+                  onChange={handleStatus}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                >
+                  <option value="">--</option>
+                  <option value="ACTIVE">ACTIVE</option>
+                  <option value="SUSPENSION">SUSPENSION</option>
+                  <option value="BAN">BAN</option>
+                  <option value="QUIT">QUIT</option>
+                </select>
+              </>
+            ) : (
+              <h2 className="text-gray-600 font-semibold">신고유저</h2>
+            )}
           </div>
         </div>
         <div className="mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
@@ -71,13 +93,26 @@ const Users = () => {
                   <div className="w-96 text-left text-xs font-semibold text-gray-600">USERID</div>
                   <div className="w-96 text-left text-xs font-semibold text-gray-600">EMAIL</div>
                   <div className="w-80 text-left text-xs font-semibold text-gray-600">NICKNAME</div>
-                  <div className="w-80 text-left text-xs font-semibold text-gray-600">CREATE_DATE</div>
-                  <div className="w-52 text-left text-xs font-semibold text-gray-600">STAUTS</div>
-                  <div className="text-left text-xs font-semibold text-gray-600">EDIT</div>
+                  {type === "all" ? (
+                    <>
+                      <div className="w-80 text-left text-xs font-semibold text-gray-600">CREATE_DATE</div>
+                      <div className="w-52 text-left text-xs font-semibold text-gray-600">STAUTS</div>
+                      <div className="text-left text-xs font-semibold text-gray-600">EDIT</div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="w-80 text-left text-xs font-semibold text-gray-600">RESULT_TYPE</div>
+                      <div className="w-52 text-left text-xs font-semibold text-gray-600">DETAIL</div>
+                    </>
+                  )}
                 </div>
               </div>
               <ul>
-                {data.totalElements ? data.content.map((board, index) => <TableItem key={index} data={board} />) : <li>등록된 유저가 없습니다.</li>}
+                {data.totalElements ? (
+                  data.content.map((user, index) => <TableItem key={index} data={user} type={type} />)
+                ) : (
+                  <li>등록된 유저가 없습니다.</li>
+                )}
               </ul>
             </div>
             <div className="px-2 py-2 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
