@@ -5,6 +5,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require("tailwindcss"), require("autoprefixer")],
+  plugins: [require("tailwindcss"), require("autoprefixer"), require("tailwind-scrollbar-hide")],
 };
-

@@ -8,7 +8,7 @@ const Modal = ({ handleModal, handleSubmit, children }) => {
   const footer = childrenArray.find((child) => child.type === Modal.Footer);
   return (
     <ModalPortal>
-      <div className="h-full w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50 text-center">
+      <div className="h-full w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
         <div className="bg-white rounded w-10/12 md:w-1/3">
           <div className="border-b px-4 py-2 flex justify-between items-center">
             <h3 className="font-semibold text-lg">{header}</h3>
@@ -37,7 +37,7 @@ Modal.Header = ({ children }) => {
 };
 
 Modal.Body = ({ children }) => {
-  return <div className="modal-body">{children}</div>;
+  return <div className="modal-body max-h-[70vh] overflow-y-scroll overflow-x-hidden scrollbar-hide">{children}</div>;
 };
 
 Modal.Footer = ({ children }) => {
