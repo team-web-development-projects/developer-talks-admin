@@ -14,7 +14,7 @@ function Header() {
 
   const handleHomeClick = () => {
     if (isAdminLoggedIn) {
-      navigate("/home");
+      navigate("/home/main");
     } else {
       window.alert("로그인해주세요");
     }
