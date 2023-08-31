@@ -52,10 +52,10 @@ const Users = ({ type }) => {
     refetch();
   }, [page, status]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setPage(0);
     refetch();
-  },[type])
+  }, [type]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>error...</div>;
@@ -109,7 +109,13 @@ const Users = ({ type }) => {
               </div>
               <ul>
                 {data.totalElements ? (
-                  data.content.map((user, index) => <TableItem key={index} data={user} type={type} />)
+                  data.content.map((user, index) =>
+                    type === "all" ? (
+                      <TableItem key={index} data={user} type={type} />
+                    ) : user.reportedUserInfoDto && user.resultType ? (
+                      <TableItem key={index} data={user.reportedUserInfoDto} type={type} resultType={user.resultType} />
+                    ) : null
+                  )
                 ) : (
                   <li>등록된 유저가 없습니다.</li>
                 )}

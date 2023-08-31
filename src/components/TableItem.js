@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import ModalUserEdit from "./Modal/ModalUserEdit";
 import ModalUserStatus from "./Modal/ModalUserStatus";
 import Status from "./Status";
 
-const TableItem = ({ data, type }) => {
+const TableItem = ({ data, type, resultType }) => {
   const [modalStatus, setModalStatus] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [status, setStatus] = useState("");
@@ -27,11 +27,15 @@ const TableItem = ({ data, type }) => {
         <div className="w-96 text-sm">
           <div className="flex items-center">
             <div className="flex-shrink-0 w-10 h-10">
-              <img
+              {/* <img
                 className="w-full h-full rounded-full"
-                src={data.profileImgUrl ? data.profileImgUrl : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+                src={
+                  data.profileImgUrl
+                    ? data.profileImgUrl
+                    : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                }
                 alt=""
-              />
+              /> */}
             </div>
             <div className="ml-3">
               <p className="text-gray-900">{data.userid}</p>
@@ -74,7 +78,14 @@ const TableItem = ({ data, type }) => {
             </div>
           </>
         ) : (
-          <></>
+          <>
+            <div className="w-96 text-sm">
+              <p className="text-gray-900">{data.resultType}</p>
+            </div>
+            <div className="text-sm">
+              <HiOutlinePencilAlt className="text-blue-500 text-lg cursor-pointer" onClick={() => setModalEdit(true)} />
+            </div>
+          </>
         )}
       </li>
     </>
