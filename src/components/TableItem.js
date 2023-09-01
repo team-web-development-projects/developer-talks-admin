@@ -5,11 +5,13 @@ import ModalReport from "./Modal/ModalReport";
 import ModalUserEdit from "./Modal/ModalUserEdit";
 import ModalUserStatus from "./Modal/ModalUserStatus";
 import Status from "./Status";
+import ModalReportDetail from './Modal/ModalReportDetail';
 
 const TableItem = ({ data, type, resultType }) => {
   const [modalStatus, setModalStatus] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalReport, setModalReport] = useState(false);
+  const [modalDetail, setModalDetail]=useState(false);
   const [status, setStatus] = useState("");
 
   const handleModalStatus = (t) => {
@@ -26,6 +28,7 @@ const TableItem = ({ data, type, resultType }) => {
       {modalStatus && <ModalUserStatus setModalStatus={setModalStatus} status={status} id={data.id} />}
       {modalEdit && <ModalUserEdit setModalEdit={setModalEdit} data={data} />}
       {modalReport && <ModalReport setModalReport={setModalReport} id={data.id} type="USER"/>}
+      {modalDetail && <ModalReportDetail setModalDetail={setModalDetail} id={data.id} type="user"/>}
       <li className="flex items-center px-4 py-2 border-b border-gray-200 bg-white">
         <div className="w-96 text-sm">
           <div className="flex items-center">
@@ -88,7 +91,7 @@ const TableItem = ({ data, type, resultType }) => {
               </Status>
             )}
             <div className="text-sm">
-              <AiOutlineInfoCircle className="text-blue-500 text-lg cursor-pointer" onClick={() => {}} />
+              <AiOutlineInfoCircle className="text-blue-500 text-lg cursor-pointer" onClick={() => {setModalDetail(true)}} />
             </div>
           </>
         )}
