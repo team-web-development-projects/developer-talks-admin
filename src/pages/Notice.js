@@ -57,7 +57,7 @@ const Notice = () => {
   );
 
   async function getUserList() {
-    const { data } = await axios.get(`${ROOT_API}/admin/announcements/all`, {
+    const { data } = await axios.get(`${ROOT_API}/announcements/all`, {
       params: { page: page, size: 10, status: status },
       headers: {
         "Content-Type": "application/json",
