@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import ModalBoardDetail from "./Modal/ModalBoardDetail";
 import ModalReportDetail from "./Modal/ModalReportDetail";
+import Status from './Status';
+import ModalReport from './Modal/ModalReport';
 
 const ItemBoard = ({ data, type }) => {
   const [modalDetail, setModalDetail] = useState(false);
+  const [modalReport, setModalReport] = useState(false);
   const [modalReportDetail, setModalReportDetail] = useState(false);
   const handleModal = () => {
     if (type === "all") setModalDetail(true);
@@ -13,6 +16,7 @@ const ItemBoard = ({ data, type }) => {
   return (
     <>
       {modalDetail && <ModalBoardDetail setModalDetail={setModalDetail} id={data.id} />}
+      {modalReport && <ModalReport setModalReport={setModalReport} id={data.postId} type="POST" />}
       {modalReportDetail && <ModalReportDetail setModalDetail={setModalReportDetail} id={data.postId} type="board" />}
       <li className="flex items-center px-4 py-2 border-b border-gray-200 bg-white">
         <div className="w-96 text-sm">
@@ -48,7 +52,11 @@ const ItemBoard = ({ data, type }) => {
             </div>
           </>
         ) : (
-          <></>
+          <>
+            <Status textColor="text-orange-900" bgColor="bg-orange-200" onClick={() => setModalReport(true)}>
+              WAIT
+            </Status>
+          </>
         )}
 
         <div className="text-sm">

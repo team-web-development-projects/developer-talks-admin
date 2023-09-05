@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import ItemUser from "../components/TableItem";
+import ItemUser from "../components/ItemUser";
 import { ROOT_API } from "../constants/api";
 
 const Users = ({ type }) => {

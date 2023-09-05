@@ -101,7 +101,9 @@ const Board = ({ type }) => {
                       <div className="w-44 text-left text-xs font-semibold text-gray-600">RECOMMEND_COUNT</div>
                     </>
                   ) : (
-                    <></>
+                    <>
+                      <div className="w-80 text-left text-xs font-semibold text-gray-600">RESULT_TYPE</div>
+                    </>
                   )}
                   <div className="text-left text-xs font-semibold text-gray-600">DETAIL</div>
                 </div>
