@@ -20,6 +20,7 @@ function App() {
             <Route path="users" element={<Users type="all" />} />
             <Route path="reportUsers" element={<Users type="report" />} />
             <Route path="board" element={<Board type="all" />} />
+            <Route path="reportBoard" element={<Board type="report" />} />
             <Route path="notice" element={<Notice />} />
           </Route>
         </Route>

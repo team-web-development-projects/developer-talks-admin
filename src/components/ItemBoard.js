@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import ModalBoardDetail from "./Modal/ModalBoardDetail";
+import ModalReportDetail from "./Modal/ModalReportDetail";
 
-const TableItem3 = ({ data, type }) => {
+const ItemBoard = ({ data, type }) => {
   const [modalDetail, setModalDetail] = useState(false);
+  const [modalReportDetail, setModalReportDetail] = useState(false);
+  const handleModal = () => {
+    if (type === "all") setModalDetail(true);
+    else if (type === "report") setModalReportDetail(true);
+  };
   return (
     <>
       {modalDetail && <ModalBoardDetail setModalDetail={setModalDetail} id={data.id} />}
+      {modalReportDetail && <ModalReportDetail setModalDetail={setModalReportDetail} id={data.postId} type="board" />}
       <li className="flex items-center px-4 py-2 border-b border-gray-200 bg-white">
         <div className="w-96 text-sm">
           <div className="flex items-center">
@@ -18,32 +25,38 @@ const TableItem3 = ({ data, type }) => {
               />
             </div>
             <div className="ml-3">
-              <p className="text-gray-900">{data.nickname}</p>
+              <p className="text-gray-900">{type === "all" ? data.nickname : data.writerNickname}</p>
             </div>
           </div>
         </div>
         <div className="w-96 text-sm">
           <p className="text-gray-900">{data.title}</p>
         </div>
-        <div className="w-44 text-sm">
-          <p className="text-gray-900">{data.viewCount}</p>
-        </div>
-        <div className="w-44 text-sm">
-          <p className="text-gray-900">{data.favoriteCount}</p>
-        </div>
-        <div className="w-44 text-sm">
-          <p className="text-gray-900">{data.recommendCount}</p>
-        </div>
         <div className="w-80 text-sm">
           <p className="text-gray-900">{data.createDate}</p>
         </div>
+        {type === "all" ? (
+          <>
+            <div className="w-44 text-sm">
+              <p className="text-gray-900">{data.viewCount}</p>
+            </div>
+            <div className="w-44 text-sm">
+              <p className="text-gray-900">{data.favoriteCount}</p>
+            </div>
+            <div className="w-44 text-sm">
+              <p className="text-gray-900">{data.recommendCount}</p>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+
         <div className="text-sm">
-          <AiOutlineInfoCircle className="text-blue-500 text-lg cursor-pointer" onClick={() => setModalDetail(true)} />
+          <AiOutlineInfoCircle className="text-blue-500 text-lg cursor-pointer" onClick={handleModal} />
         </div>
-        {type === "all" ? <></> : <></>}
       </li>
     </>
   );
 };
 
-export default TableItem3;
+export default ItemBoard;

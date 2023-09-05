@@ -1,5 +1,5 @@
 import React from "react";
-import { AiFillNotification, AiOutlineDown } from "react-icons/ai";
+import { AiFillNotification } from "react-icons/ai";
 import { BiSolidDetail } from "react-icons/bi";
 import { BsFillPersonFill } from "react-icons/bs";
 import SideBarItem from "../components/SideBarItem";
@@ -29,7 +29,11 @@ const NavSideBar = () => {
                 </li>
                 <SideBarItem linkUrl="/home/board">
                   <BiSolidDetail className="group-hover:text-cyan-600" />
-                  <span className="group-hover:text-gray-700">게시글 관리</span>
+                  <span className="group-hover:text-gray-700">전체 게시글</span>
+                </SideBarItem>
+                <SideBarItem linkUrl="/home/reportBoard">
+                  <BiSolidDetail className="group-hover:text-cyan-600" />
+                  <span className="group-hover:text-gray-700">신고 게시글</span>
                 </SideBarItem>
                 <SideBarItem linkUrl="/home/notice">
                   <AiFillNotification />

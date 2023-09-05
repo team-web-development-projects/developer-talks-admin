@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import TableItem3 from "../components/TableItem3";
+import ItemBoard from "../components/ItemBoard";
 import { ROOT_API } from "../constants/api";
 
 const Board = ({ type }) => {
@@ -35,7 +35,7 @@ const Board = ({ type }) => {
       });
       return data;
     } else if (type === "report") {
-      const { data } = await axios.get(`${ROOT_API}/admin/reports/user/all`, {
+      const { data } = await axios.get(`${ROOT_API}/admin/reports/post/all`, {
         params: { page: page, size: 10 },
         headers: {
           "Content-Type": "application/json",
@@ -93,24 +93,22 @@ const Board = ({ type }) => {
                 <div className="flex px-4 py-3 border-b-2 border-gray-200 bg-gray-100">
                   <div className="w-96 text-left text-xs font-semibold text-gray-600">NICKNAME</div>
                   <div className="w-96 text-left text-xs font-semibold text-gray-600">TITLE</div>
-                  <div className="w-44 text-left text-xs font-semibold text-gray-600">VIEW_COUNT</div>
-                  <div className="w-44 text-left text-xs font-semibold text-gray-600">FAVORITE_COUNT</div>
-                  <div className="w-44 text-left text-xs font-semibold text-gray-600">RECOMMEND_COUNT</div>
                   <div className="w-80 text-left text-xs font-semibold text-gray-600">CREATE_DATE</div>
-                  <div className="text-left text-xs font-semibold text-gray-600">DETAIL</div>
                   {type === "all" ? (
-                    <></>
-                  ) : (
                     <>
-                      <div className="w-80 text-left text-xs font-semibold text-gray-600">RESULT_TYPE</div>
-                      <div className="w-52 text-left text-xs font-semibold text-gray-600">DETAIL</div>
+                      <div className="w-44 text-left text-xs font-semibold text-gray-600">VIEW_COUNT</div>
+                      <div className="w-44 text-left text-xs font-semibold text-gray-600">FAVORITE_COUNT</div>
+                      <div className="w-44 text-left text-xs font-semibold text-gray-600">RECOMMEND_COUNT</div>
                     </>
+                  ) : (
+                    <></>
                   )}
+                  <div className="text-left text-xs font-semibold text-gray-600">DETAIL</div>
                 </div>
               </div>
               <ul>
                 {data.totalElements ? (
-                  data.content.map((user, index) => <TableItem3 key={index} data={user} type={type} />)
+                  data.content.map((user, index) => <ItemBoard key={index} data={user} type={type} />)
                 ) : (
                   <li>등록된 글이 없습니다.</li>
                 )}

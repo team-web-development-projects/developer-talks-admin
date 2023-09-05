@@ -7,7 +7,7 @@ import ModalUserStatus from "./Modal/ModalUserStatus";
 import Status from "./Status";
 import ModalReportDetail from './Modal/ModalReportDetail';
 
-const TableItem = ({ data, type, resultType }) => {
+const ItemUser = ({ data, type, resultType }) => {
   const [modalStatus, setModalStatus] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalReport, setModalReport] = useState(false);
@@ -100,4 +100,4 @@ const TableItem = ({ data, type, resultType }) => {
   );
 };
 
-export default TableItem;
+export default ItemUser;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const TableItemReport = ({ data, type }) => {
+const ItemReport = ({ data}) => {
   return (
     <li className="flex items-center px-4 py-2 border-b border-gray-200 bg-white">
       <div className="w-52 text-sm">
@@ -19,4 +19,4 @@ const TableItemReport = ({ data, type }) => {
   );
 };
 
-export default TableItemReport;
+export default ItemReport;

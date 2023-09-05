@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import TableItem from "../components/TableItem";
+import ItemUser from "../components/TableItem";
 import { ROOT_API } from "../constants/api";
 
 const Users = ({ type }) => {
@@ -111,9 +111,9 @@ const Users = ({ type }) => {
                 {data.totalElements ? (
                   data.content.map((user, index) =>
                     type === "all" ? (
-                      <TableItem key={index} data={user} type={type} />
+                      <ItemUser key={index} data={user} type={type} />
                     ) : user.reportedUserInfoDto && user.resultType ? (
-                      <TableItem key={index} data={user.reportedUserInfoDto} type={type} resultType={user.resultType} />
+                      <ItemUser key={index} data={user.reportedUserInfoDto} type={type} resultType={user.resultType} />
                     ) : null
                   )
                 ) : (
