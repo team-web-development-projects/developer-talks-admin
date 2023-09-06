@@ -52,6 +52,24 @@ const TableItem2 = ({ data }) => {
     setUserInfo({ ...userInfo, [name]: value });
     console.log(userInfo);
   };
+
+  const onDelete = async (e) => {
+    e.preventDefault(); // Prevent form submission
+    try {
+      const response = await axios.delete(
+        `${ROOT_API}/admin/announcements/${data.id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-AUTH-TOKEN": token,
+          },
+        }
+      );
+      console.log("로그인 성공:", response);
+    } catch (error) {
+      console.error("로그인 에러:", error);
+    }
+  };
   return (
     <>
       {modalEdit && (
@@ -100,14 +118,14 @@ const TableItem2 = ({ data }) => {
         </Modal>
       )}
       <li className="flex items-center px-4 py-2 border-b border-gray-200 bg-white">
-        <div className="w-96 text-sm">
+        <div className="w-80 text-sm">
           <div className="flex items-center">
             <div className="ml-3">
               <p className="text-gray-900">{data.title}</p>
             </div>
           </div>
         </div>
-        <div className="w-96 text-sm">
+        <div className="w-80 text-sm">
           <p className="text-gray-900">{data.content}</p>
         </div>
         <div className="w-80 text-sm">
@@ -119,8 +137,11 @@ const TableItem2 = ({ data }) => {
         <div className="w-80 text-sm">
           <p className="text-gray-900">{data.viewCount}</p>
         </div>
-        <div className="text-sm">
+        <div className="w-80 text-sm">
           <HiOutlinePencilAlt className="text-blue-500 text-lg cursor-pointer" onClick={handleModalEdit} />
+        </div>
+        <div className="text-sm">
+          <button className="text-gray-900" onClick={onDelete}>삭제</button>
         </div>
       </li>
     </>

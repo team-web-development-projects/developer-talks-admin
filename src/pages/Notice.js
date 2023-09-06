@@ -57,7 +57,7 @@ const Notice = () => {
   );
 
   async function getUserList() {
-    const { data } = await axios.get(`${ROOT_API}/admin/announcements/all`, {
+    const { data } = await axios.get(`${ROOT_API}/announcements/all`, {
       params: { page: page, size: 10, status: status },
       headers: {
         "Content-Type": "application/json",
@@ -151,7 +151,8 @@ const Notice = () => {
                   <div className="w-80 text-left text-xs font-semibold text-gray-600">WRITER</div>
                   <div className="w-80 text-left text-xs font-semibold text-gray-600">modifiedDate</div>
                   <div className="w-80 text-left text-xs font-semibold text-gray-600">viewCount</div>
-                  <div className="text-left text-xs font-semibold text-gray-600">EDIT</div>
+                  <div className="w-80 text-left text-xs font-semibold text-gray-600">EDIT</div>
+                  <div className="text-left text-xs font-semibold text-gray-600">DELETE</div>
                 </div>
               </div>
               <ul>
