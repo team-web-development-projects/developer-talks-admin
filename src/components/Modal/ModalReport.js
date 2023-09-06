@@ -60,7 +60,7 @@ const ModalReport = ({ setModalReport, id, type }) => {
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
                 />
                 <label htmlFor="horizontal-list-radio-license" className="w-full py-3 ml-2 text-sm font-medium text-gray-900">
-                  NP
+                  활성화
                 </label>
               </div>
             </li>
@@ -77,7 +77,7 @@ const ModalReport = ({ setModalReport, id, type }) => {
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
                     />
                     <label htmlFor="horizontal-list-radio-id" className="w-full py-3 ml-2 text-sm font-medium text-gray-900">
-                      SUSPENSION
+                      정지
                     </label>
                   </div>
                 </li>
@@ -93,7 +93,7 @@ const ModalReport = ({ setModalReport, id, type }) => {
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
                     />
                     <label htmlFor="horizontal-list-radio-passport" className="w-full py-3 ml-2 text-sm font-medium text-gray-900">
-                      BAN
+                      차단
                     </label>
                   </div>
                 </li>
@@ -111,7 +111,7 @@ const ModalReport = ({ setModalReport, id, type }) => {
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
                     />
                     <label htmlFor="horizontal-list-radio-passport" className="w-full py-3 ml-2 text-sm font-medium text-gray-900">
-                      FORBIDDEN
+                      숨김
                     </label>
                   </div>
                 </li>
