@@ -23,8 +23,8 @@ const TableItem2 = ({ data }) => {
       axios.put(
         `${ROOT_API}/admin/announcements/${data.id}`,
         {
-          title: userInfo.nickname,
-          content: userInfo.email,
+          title: userInfo.email,
+          content: userInfo.nickname,
         },
         {
           headers: {

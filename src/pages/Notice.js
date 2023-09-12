@@ -35,8 +35,8 @@ const Notice = () => {
       axios.post(
         `${ROOT_API}/admin/announcements`,
         {
-          title: userInfo.nickname,
-          content: userInfo.email,
+          title: userInfo.email,
+          content: userInfo.nickname ,
         },
         {
           headers: {
