@@ -65,7 +65,8 @@ const TableItem2 = ({ data }) => {
           },
         }
       );
-      console.log("로그인 성공:", response);
+        alert("삭제되었습니다")
+      queryClient.invalidateQueries(["userList"]);
     } catch (error) {
       console.error("로그인 에러:", error);
     }
