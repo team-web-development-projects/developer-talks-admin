@@ -33,7 +33,7 @@ const ItemUser = ({ data, type, resultType }) => {
         <div className="w-96 text-sm">
           <div className="flex items-center">
             <div className="flex-shrink-0 w-10 h-10">
-              {/* <img
+              <img
                 className="w-full h-full rounded-full"
                 src={
                   data.profileImgUrl
@@ -41,7 +41,7 @@ const ItemUser = ({ data, type, resultType }) => {
                     : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                 }
                 alt=""
-              /> */}
+              />
             </div>
             <div className="ml-3">
               <p className="text-gray-900">{data.userid}</p>

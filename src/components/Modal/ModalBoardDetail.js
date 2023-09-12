@@ -2,11 +2,13 @@ import axios from "axios";
 import React, { useState } from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import { FiThumbsUp } from "react-icons/fi";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { ROOT_API } from "../../constants/api";
 import Modal from "./Modal";
 
-const ModalBoardDetail = ({ setModalDetail, id }) => {
+const ModalBoardDetail = ({ setModalDetail, id, forbidden }) => {
+  const queryClient = useQueryClient();
+  const token = localStorage.getItem("admin");
   const [post, setPost] = useState({
     userInfo: {},
     imageUrls: [],
@@ -14,9 +16,38 @@ const ModalBoardDetail = ({ setModalDetail, id }) => {
   const handleModalDetail = () => {
     setModalDetail(false);
   };
+  
+  const forbidMutation = useMutation(
+    () =>
+      axios.put(
+        `${ROOT_API}/admin/posts/${forbidden ? "restore" : "forbid"}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-AUTH-TOKEN": token,
+          },
+          params: {
+            id: id,
+          },
+        }
+      ),
+    {
+      onSuccess: (res) => {
+        queryClient.invalidateQueries(["boardList"]);
+        setModalDetail(false);
+      },
+      onError: (err) => {
+        console.log(err.response.data.message);
+      },
+    }
+  );
+
   const handleSubmitDetail = (e) => {
     e.preventDefault();
+    forbidMutation.mutate();
   };
+
   async function getBoardDetail() {
     const response = await axios.get(`${ROOT_API}/post/${id}`, {
       headers: {
@@ -83,7 +114,7 @@ const ModalBoardDetail = ({ setModalDetail, id }) => {
           </div>
         </div>
       </Modal.Body>
-      <Modal.Footer>숨김</Modal.Footer>
+      <Modal.Footer>{forbidden ? "복구" : "숨김"}</Modal.Footer>
     </Modal>
   );
 };

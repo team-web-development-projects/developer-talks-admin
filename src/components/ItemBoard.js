@@ -15,7 +15,7 @@ const ItemBoard = ({ data, type }) => {
   };
   return (
     <>
-      {modalDetail && <ModalBoardDetail setModalDetail={setModalDetail} id={data.id} />}
+      {modalDetail && <ModalBoardDetail setModalDetail={setModalDetail} id={data.id} forbidden={data.forbidden}/>}
       {modalReport && <ModalReport setModalReport={setModalReport} id={data.postId} type="POST" />}
       {modalReportDetail && <ModalReportDetail setModalDetail={setModalReportDetail} id={data.postId} type="board" />}
       <li className="flex items-center px-4 py-2 border-b border-gray-200 bg-white">
