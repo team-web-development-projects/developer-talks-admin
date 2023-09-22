@@ -50,6 +50,7 @@ const ModalBoardDetail = ({ setModalDetail, id, forbidden }) => {
 
   async function getBoardDetail() {
     const response = await axios.get(`${ROOT_API}/post/${id}`, {
+      params:{adminPage: true},
       headers: {
         "Content-Type": "application/json",
       },
