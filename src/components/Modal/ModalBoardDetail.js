@@ -16,7 +16,7 @@ const ModalBoardDetail = ({ setModalDetail, id, forbidden }) => {
   const handleModalDetail = () => {
     setModalDetail(false);
   };
-  
+
   const forbidMutation = useMutation(
     () =>
       axios.put(
@@ -50,6 +50,9 @@ const ModalBoardDetail = ({ setModalDetail, id, forbidden }) => {
 
   async function getBoardDetail() {
     const response = await axios.get(`${ROOT_API}/post/${id}`, {
+      params: {
+        adminPage: true,
+      },
       headers: {
         "Content-Type": "application/json",
       },
@@ -59,7 +62,6 @@ const ModalBoardDetail = ({ setModalDetail, id, forbidden }) => {
       return `<img src=${response.data.imageUrls[cnt++]} />`;
     });
     setPost(response.data);
-    console.log(response.data);
   }
 
   const { data, isLoading, error, refetch } = useQuery({
