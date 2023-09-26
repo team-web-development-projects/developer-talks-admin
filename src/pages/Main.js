@@ -12,13 +12,6 @@ const Main = () => {
   const [endDate, setEndDate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Use useEffect to fetch data when startDate and endDate change
-  // useEffect(() => {
-  //   if (startDate && endDate) {
-  //     getUserList();
-  //   }
-  // }, [startDate, endDate]);
-
   async function getUserList() {
     try {
       setIsLoading(true);
@@ -56,6 +49,11 @@ const Main = () => {
     setEndDate(date);
   };
 
+  function formatDate(date) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric', weekday: 'long' };
+    return date.toLocaleDateString('ko-KR', options);
+  }
+
   return (
     <div className="container">
       <div className="bg-white shadow-lg rounded-lg p-4 mb-4">
@@ -73,13 +71,23 @@ const Main = () => {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">시작 날짜</label>
-            <DatePicker className="border rounded p-2 w-full" selected={startDate} onChange={handleStartDateChange} />
-            {startDate && <p className="mt-2 text-sm text-gray-500">시작 날짜: {startDate.toDateString()}</p>}
+            <DatePicker
+              className="border rounded p-2 w-full"
+              selected={startDate}
+              onChange={handleStartDateChange}
+              dateFormat="yyyy-MM-dd (EEE)"
+            />
+            {startDate && <p className="mt-2 text-sm text-gray-500">시작 날짜:  {formatDate(startDate)}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">끝 날짜</label>
-            <DatePicker className="border rounded p-2 w-full" selected={endDate} onChange={handleEndDateChange} />
-            {endDate && <p className="mt-2 text-sm text-gray-500">끝 날짜: {endDate.toDateString()}</p>}
+            <DatePicker
+              className="border rounded p-2 w-full"
+              selected={endDate}
+              onChange={handleEndDateChange}
+              dateFormat="yyyy-MM-dd (EEE)"
+            />
+            {endDate && <p className="mt-2 text-sm text-gray-500">끝 날짜: {formatDate(endDate)}</p>}
           </div>
         </div>
 

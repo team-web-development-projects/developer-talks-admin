@@ -31,7 +31,7 @@ function Header() {
   return (
     <>
       <div className="bg-blue-500 p-4 flex gap-10">
-        <h1 className="text-white text-2xl font-bold">Hello, D-talks ~~</h1>
+        <h1 className="text-white text-2xl font-bold">Developer-Talk</h1>
         <Button variant="primary" type="button" className="text-white text-2xl font-bold" onClick={handleHomeClick}>
           HOME
         </Button>
