@@ -135,7 +135,7 @@ const Notice = () => {
           <Modal.Footer>공지글 작성</Modal.Footer>
         </Modal>
       )}
-      <div className="bg-white p-8 rounded-md w-full">
+      <div className="bg-white p-4 rounded-md w-full">
         <div className=" flex items-center">
           <div className="flex">
             <h2 className="text-gray-600 font-semibold">공지글 관리</h2>
@@ -148,10 +148,10 @@ const Notice = () => {
                 <div className="flex px-4 py-3 border-b-2 border-gray-200 bg-gray-100">
                   <div className="w-96 text-left text-xs font-semibold text-gray-600">TITLE</div>
                   <div className="w-96 text-left text-xs font-semibold text-gray-600">CONTENT</div>
-                  <div className="w-80 text-left text-xs font-semibold text-gray-600">WRITER</div>
-                  <div className="w-80 text-left text-xs font-semibold text-gray-600">modifiedDate</div>
-                  <div className="w-80 text-left text-xs font-semibold text-gray-600">viewCount</div>
-                  <div className="w-80 text-left text-xs font-semibold text-gray-600">EDIT</div>
+                  <div className="w-52 text-left text-xs font-semibold text-gray-600">WRITER</div>
+                  <div className="w-72 text-left text-xs font-semibold text-gray-600">modifiedDate</div>
+                  <div className="w-36 text-left text-xs font-semibold text-gray-600">viewCount</div>
+                  <div className="w-36 text-left text-xs font-semibold text-gray-600">EDIT</div>
                   <div className="text-left text-xs font-semibold text-gray-600">DELETE</div>
                 </div>
               </div>

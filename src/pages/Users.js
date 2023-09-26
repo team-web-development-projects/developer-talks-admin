@@ -62,7 +62,7 @@ const Users = ({ type }) => {
 
   return (
     <>
-      <div className="bg-white p-8 rounded-md w-full">
+      <div className="bg-white p-4 rounded-md">
         <div className=" flex items-center">
           <div className="flex">
             {type === "all" ? (

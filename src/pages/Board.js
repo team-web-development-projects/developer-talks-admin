@@ -64,7 +64,7 @@ const Board = ({ type }) => {
   if (error) return <div>error...</div>;
   return (
     <>
-      <div className="bg-white p-8 rounded-md w-full">
+      <div className="bg-white p-4 rounded-md w-full">
         <div className=" flex items-center">
           <div className="flex">
             {type === "all" ? (

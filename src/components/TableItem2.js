@@ -119,26 +119,26 @@ const TableItem2 = ({ data }) => {
         </Modal>
       )}
       <li className="flex items-center px-4 py-2 border-b border-gray-200 bg-white">
-        <div className="w-80 text-sm">
+        <div className="w-96 text-sm">
           <div className="flex items-center">
             <div className="ml-3">
               <p className="text-gray-900">{data.title}</p>
             </div>
           </div>
         </div>
-        <div className="w-80 text-sm">
+        <div className="w-96 text-sm">
           <p className="text-gray-900">{data.content}</p>
         </div>
-        <div className="w-80 text-sm">
+        <div className="w-52 text-sm">
           <p className="text-gray-900">{data.writer}</p>
         </div>
-        <div className="w-80 text-sm">
+        <div className="w-72 text-sm">
           <p className="text-gray-900">{data.modifiedDate}</p>
         </div>
-        <div className="w-80 text-sm">
+        <div className="w-36 text-sm">
           <p className="text-gray-900">{data.viewCount}</p>
         </div>
-        <div className="w-80 text-sm">
+        <div className="w-36 text-sm">
           <HiOutlinePencilAlt className="text-blue-500 text-lg cursor-pointer" onClick={handleModalEdit} />
         </div>
         <div className="text-sm">

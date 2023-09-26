@@ -40,7 +40,7 @@ function Login() {
             console.log("로그인 성공:", response);
             alert("로그인되었습니다.")
             localStorage.setItem("admin", response.data.accessToken);
-            navigate("/home")
+            navigate("/home/main")
         } catch (error) {
             console.error("로그인 에러:", error);
             alert(error.response.data.message);
