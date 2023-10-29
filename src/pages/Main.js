@@ -9,7 +9,7 @@ const Main = () => {
   const token = localStorage.getItem("admin");
   const [chartData, setChartData] = useState([]);
   const endDateDefault = new Date();
-  endDateDefault.setDate(endDateDefault.getDate() - 7); // 끝 날짜 기본값: 오늘로부터 7일 전
+  endDateDefault.setDate(endDateDefault.getDate() - 6); // 끝 날짜 기본값: 오늘로부터 7일 전
   const [startDate, setStartDate] = useState(endDateDefault); // 시작 날짜 기본값: 오늘
   const [endDate, setEndDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
